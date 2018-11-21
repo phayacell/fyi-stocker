@@ -1,5 +1,5 @@
 function getCharset(contentType) {
-  return contentType
+  const charset = contentType
     .split(';')
     .filter(function(str) {
       return (
@@ -12,6 +12,8 @@ function getCharset(contentType) {
     .map(function(str) {
       return str.replace(/['"]/g, '').split('=')[1]
     })[0]
+
+  return charset ? charset : 'utf-8'
 }
 
 function fetchTitle(url) {
