@@ -47,7 +47,13 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: echo ${ENV} > ~/.env
+      - run:
+          name: create .env
+          command: |
+            echo "FB_API_KEY=${FB_API_KEY}" > .env
+            echo "FB_AUTH_DOMAIN=${FB_AUTH_DOMAIN}" >> .env
+            echo "FB_DATABASE_URL=${FB_DATABASE_URL}" >> .env
+            echo "FB_PROJECT_ID=${FB_PROJECT_ID}" >> .env
       - run: yarn run generate
       - run:
           name: Deploy Master to Firebase
