@@ -89,7 +89,7 @@ export default {
 
       if (this.isURL(text)) {
         this.loading = true
-        fetch(`${process.env.FUNCTION_URL}?url=` + encodeURIComponent(text))
+        fetch(`${process.env.GAS_WEB_URL}?url=` + encodeURIComponent(text))
           .then(response => {
             return response.ok ? response.json() : null
           })
