@@ -50,7 +50,7 @@ jobs:
       - run: yarn run generate
       - run:
           name: Deploy Master to Firebase
-          command: ./node_modules/.bin/firebase deploy --project="FB_PROJECT_ID" --token="FB_LOGIN_TOKEN"
+          command: ./node_modules/.bin/firebase deploy --project="$FB_PROJECT_ID" --token="$FB_LOGIN_TOKEN"
 
 workflows:
   version: 2
