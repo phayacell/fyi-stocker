@@ -17,8 +17,14 @@ export const mutations = {
 }
 
 export const actions = {
-  initialize: firebaseAction(async ({ bindFirebaseRef }) => {
-    await bindFirebaseRef('contributes', contributesRef.orderBy('at', 'desc'))
+  initialize: firebaseAction(async ({ bindFirebaseRef }, uid) => {
+    await bindFirebaseRef(
+      'contributes',
+      contributesRef
+        .where('uid', '==', uid)
+        .orderBy('at', 'desc')
+        .orderBy('created', 'desc')
+    )
   }),
   add: firebaseAction((context, data) => {
     contributesRef.add({
