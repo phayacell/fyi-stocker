@@ -2,6 +2,10 @@
   section.container
     v-container(fluid grid-list-lg)
       v-card
+        v-card-title
+          v-spacer
+          .headline total {{ contributes.length }} contributes
+          v-spacer
         v-progress-linear(v-if="loading" indeterminate)
         v-data-table(:items="contributes" hide-headers hide-actions disable-initial-sort)
           template(slot="items" slot-scope="props")
