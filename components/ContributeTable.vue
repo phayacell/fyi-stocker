@@ -48,7 +48,7 @@ export default {
     }
   },
   created() {
-    this.initialize()
+    this.initialize(this.currentUser.uid)
   },
   methods: {
     ...mapActions('contributes', ['initialize', 'delete']),
