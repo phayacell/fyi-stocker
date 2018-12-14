@@ -5,19 +5,24 @@ const db = firebase.firestore()
 const contributesRef = db.collection('contributes')
 
 export const state = () => ({
-  contributes: []
+  contributes: [],
+  loading: false
 })
 
 export const getters = {
-  contributes: state => state.contributes
+  contributes: state => state.contributes,
+  loading: state => state.loading
 }
 
 export const mutations = {
-  ...firebaseMutations
+  ...firebaseMutations,
+  startLoad: state => (state.loading = true),
+  endLoad: state => (state.loading = false)
 }
 
 export const actions = {
-  initialize: firebaseAction(async ({ bindFirebaseRef }, uid) => {
+  initialize: firebaseAction(async ({ commit, bindFirebaseRef }, uid) => {
+    commit('startLoad')
     await bindFirebaseRef(
       'contributes',
       contributesRef
@@ -25,6 +30,7 @@ export const actions = {
         .orderBy('at', 'desc')
         .orderBy('created', 'desc')
     )
+    commit('endLoad')
   }),
   add: firebaseAction((context, data) => {
     contributesRef.add({
