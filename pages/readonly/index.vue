@@ -18,6 +18,9 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  meta: {
+    ignoreAuth: true
+  },
   validate({ query }) {
     return query.uid && query.from && query.to
   },

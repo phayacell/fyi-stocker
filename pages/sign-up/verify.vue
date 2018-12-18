@@ -10,3 +10,12 @@
               .subheading Account registration has not completed yet.
               .subheading Please access the authentication link in the confirmation email sent and complete the authentication.
 </template>
+
+<script>
+export default {
+  meta: {
+    ignoreAuth: true,
+    rejectedCertified: true
+  }
+}
+</script>

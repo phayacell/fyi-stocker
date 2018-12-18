@@ -22,6 +22,10 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  meta: {
+    ignoreAuth: true,
+    rejectedCertified: true
+  },
   data() {
     return {
       email: '',

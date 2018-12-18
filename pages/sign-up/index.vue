@@ -23,6 +23,10 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  meta: {
+    ignoreAuth: true,
+    rejectedCertified: true
+  },
   data() {
     const requiredRules = [v => !!v || 'Required field.']
 
