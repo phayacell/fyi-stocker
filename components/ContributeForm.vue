@@ -1,17 +1,17 @@
 <template lang="pug">
-  v-form(v-if="contribute" ref="form" v-model="valid" lazy-validation @submit.prevent)
-    v-card
+  v-card
+    v-form(v-if="contribute" ref="form" v-model="valid" lazy-validation @submit.prevent)
       v-card-text
         v-text-field(v-model="contribute.at" prepend-icon="calendar_today" label="AT" :rules="rules" required :disabled="loading" autofocus)
         v-text-field(v-model="contribute.url" prepend-icon="link" label="URL" :rules="rules" required :disabled="loading" @paste="loadTitle")
         v-text-field(v-model="contribute.title" prepend-icon="text_format" label="TITLE" :rules="rules" required :disabled="loading")
       v-card-actions
         template(v-if="mode === 'create'")
-          v-btn(large color="primary" type="submit" @click="add" :disabled="!valid || loading" :loading="loading") Stock
-          v-btn(large color="accent" type="button" @click="clear" :disabled="loading") Clear
+          v-btn(type="submit" large color="primary" @click="add" :disabled="!valid || loading" :loading="loading") Stock
+          v-btn(type="button" large color="accent" @click="clear" :disabled="loading") Clear
         template(v-else)
-          v-btn(large color="primary" type="submit" @click="update" :disabled="!valid || loading" :loading="loading") Update
-          v-btn(large color="accent" type="button" @click="$emit('close')" :disabled="loading") Cancel
+          v-btn(type="submit" large color="primary" @click="update" :disabled="!valid || loading" :loading="loading") Update
+          v-btn(type="button" large color="accent" @click="$emit('close')" :disabled="loading") Cancel
 </template>
 
 <script>
@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-      rules: [v => !!v || 'Required'],
+      rules: [v => !!v || 'Required field.'],
       valid: true,
       loading: false
     }

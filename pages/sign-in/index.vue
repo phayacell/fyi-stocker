@@ -1,17 +1,21 @@
 <template lang="pug">
   v-content
-    v-container(fluid fill-height)
-      v-layout(align-center justify-center)
+    v-container(grid-list-xl)
+      v-layout(row wrap justify-center)
         v-flex(xs12 sm8)
           v-card.elevation-1
             v-toolbar(dark color="primary")
-              v-toolbar-title Sign In Form
-            v-card-text
-              v-form
-                v-text-field(v-model="email" prepend-icon="email" label="email" type="text" autofocus)
-                v-text-field(v-model="password" prepend-icon="lock" label="password" type="password")
-            v-card-actions
-              v-btn(large color="primary" @click="signIn" :disabled="loading" :loading="loading") Sign In
+              v-toolbar-title Sign in form
+            v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
+              v-card-text
+                v-text-field(v-model="email" prepend-icon="email" label="email" type="text" :rules="rules" autofocus)
+                v-text-field(v-model="password" prepend-icon="lock" label="password" type="password" :rules="rules")
+              v-card-actions
+                v-btn(type="submit" large color="primary" @click="signIn" :disabled="!valid || loading" :loading="loading") Sign In
+        v-flex(xs12 sm8)
+          v-card.elevation-1
+            v-card-text.text-xs-center
+              nuxt-link(color="primary" to="/sign-up") Create account?
 </template>
 
 <script>
@@ -22,22 +26,24 @@ export default {
     return {
       email: '',
       password: '',
-      loading: false
+      valid: false,
+      loading: false,
+      rules: [v => !!v || 'Required field.']
     }
   },
   computed: {
-    ...mapGetters('auth', ['isAuthenticated', 'currentUser'])
+    ...mapGetters('auth', ['isAuthenticated'])
   },
   methods: {
     ...mapActions('auth', { authSignIn: 'signIn' }),
-    signIn: async function() {
+    signIn: function() {
       this.loading = true
       this.authSignIn({
         email: this.email,
         password: this.password
       })
-        .then(async () => {
-          await this.gotoRoute()
+        .then(() => {
+          this.$router.push('/')
         })
         .catch(error => {
           alert(error)
@@ -45,11 +51,6 @@ export default {
         .finally(() => {
           this.loading = false
         })
-    },
-    gotoRoute: async function() {
-      if (this.isAuthenticated) {
-        await this.$router.push({ path: '/' })
-      }
     }
   }
 }
