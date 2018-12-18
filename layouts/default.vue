@@ -27,7 +27,7 @@ export default {
     ...mapActions('auth', { authSignOut: 'signOut' }),
     signOut: async function() {
       await this.authSignOut()
-      await this.$router.push({ path: '/sign-in' })
+      await this.$router.push('/sign-in')
     }
   }
 }
