@@ -1,22 +1,18 @@
 import auth from '~/plugins/auth'
 
-export default async function({ store, route, redirect }) {
+export default async ({ store, route, redirect }) => {
   if (!store.getters['auth/isAuthenticated']) {
     const user = await auth()
     if (user) store.commit('auth/setUser', user)
   }
 
-  const isIgnoreAuthenticated = () =>
-    ['/sign-in', '/sign-up', '/sign-up/verify', '/readonly'].includes(
-      route.path
-    )
-  if (!store.getters['auth/isAuthenticated'] && !isIgnoreAuthenticated()) {
+  const ignoreAuth = route.meta.some(meta => meta.ignoreAuth)
+  if (!store.getters['auth/isAuthenticated'] && !ignoreAuth) {
     return redirect('/sign-in')
   }
 
-  const isRefusalAuthenticated = () =>
-    ['/sign-in', '/sign-up'].includes(route.path)
-  if (store.getters['auth/isAuthenticated'] && isRefusalAuthenticated()) {
+  const rejectedCertified = route.meta.some(meta => meta.rejectedCertified)
+  if (store.getters['auth/isAuthenticated'] && rejectedCertified) {
     return redirect('/')
   }
 }
