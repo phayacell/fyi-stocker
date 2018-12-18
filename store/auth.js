@@ -20,13 +20,13 @@ export const mutations = {
 }
 
 export const actions = {
-  async signUp({}, data) {
+  async signUp({}, { email, password }) {
     try {
       await firebase
         .auth()
-        .createUserWithEmailAndPassword(data.email, data.password)
+        .createUserWithEmailAndPassword(email, password)
         .then(async auth => {
-          await auth.user.updateProfile({ displayName: data.email })
+          await auth.user.updateProfile({ displayName: email })
           await auth.user.sendEmailVerification({ url: location.origin })
         })
     } catch (error) {
@@ -34,17 +34,14 @@ export const actions = {
       throw error
     }
   },
-  async signIn({ commit }, data) {
+  async signIn({ dispatch, commit }, { email, password }) {
     try {
       await firebase
         .auth()
-        .signInWithEmailAndPassword(data.email, data.password)
+        .signInWithEmailAndPassword(email, password)
         .then(async auth => {
           if (auth.user.emailVerified) return auth
-
-          await firebase.auth().signOut()
-          commit('setUser', null)
-
+          await dispatch('signOut')
           return Promise.reject('Can not confirm the email.')
         })
         .then(auth => commit('setUser', auth.user))
@@ -53,7 +50,7 @@ export const actions = {
       throw error
     }
   },
-  async signOut({ dispatch, commit }) {
+  async signOut({ commit }) {
     try {
       await firebase.auth().signOut()
       commit('setUser', null)
