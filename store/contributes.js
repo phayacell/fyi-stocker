@@ -32,7 +32,7 @@ export const actions = {
     )
     commit('endLoad')
   }),
-  add: firebaseAction((context, data) => {
+  add: firebaseAction(({}, data) => {
     contributesRef.add({
       uid: data.uid,
       at: data.contribute.at,
@@ -41,14 +41,14 @@ export const actions = {
       created: firebase.firestore.FieldValue.serverTimestamp()
     })
   }),
-  update: firebaseAction((context, contribute) => {
+  update: firebaseAction(({}, contribute) => {
     contributesRef.doc(contribute.id).update({
       at: contribute.at,
       url: contribute.url,
       title: contribute.title
     })
   }),
-  delete: firebaseAction((context, contribute) => {
+  delete: firebaseAction(({}, contribute) => {
     contributesRef.doc(contribute.id).delete()
   })
 }
