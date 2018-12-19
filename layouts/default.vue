@@ -1,13 +1,8 @@
 <template lang="pug">
   v-app
-    v-toolbar(app)
-      v-toolbar-items
-        v-btn(flat large @click="$router.push('/')") FYI Stocker
-      v-spacer
-      v-toolbar-items
-        v-btn(flat v-if="isAuthenticated" @click="signOut")
-          .mr-2 Sign Out
-          v-icon flight_takeoff
+    v-menu
+    v-toolbar(app dark color="primary")
+      v-toolbar-title FYI Stocker
     v-content
       v-container
         nuxt
@@ -19,22 +14,13 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import Menu from '~/components/Menu'
 import ScrollToTop from '~/components/ScrollToTop'
 
 export default {
   components: {
-    'v-scroll-to-top': ScrollToTop
-  },
-  computed: {
-    ...mapGetters('auth', ['isAuthenticated'])
-  },
-  methods: {
-    ...mapActions('auth', { authSignOut: 'signOut' }),
-    signOut: async function() {
-      await this.authSignOut()
-      await this.$router.push('/sign-in')
-    }
+    'v-scroll-to-top': ScrollToTop,
+    'v-menu': Menu
   }
 }
 </script>
