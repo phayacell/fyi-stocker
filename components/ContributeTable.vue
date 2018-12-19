@@ -9,7 +9,7 @@
       v-data-table.elevation-1(:headers="headers" :items="contributes" :search="search" :loading="loading" :rows-per-page-items="rowsPerPageItems" disable-initial-sort)
         template(slot="items" slot-scope="props")
           td.text-no-wrap {{ props.item.at }}
-          td
+          td.px-0.py-2
             a(:href="props.item.url" target="_blank") {{ props.item.title }}
           td.justify-end.layout
             v-icon.mr-2(small @click="edit(props.item)") edit
@@ -28,7 +28,7 @@ export default {
     return {
       headers: [
         { text: 'at', value: 'at' },
-        { text: 'link', value: 'title' },
+        { text: 'link', value: 'title', class: 'px-0' },
         { text: 'actions', value: 'name', sortable: false, align: 'right' }
       ],
       dialog: false,
