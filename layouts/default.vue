@@ -1,11 +1,12 @@
 <template lang="pug">
   v-app
     v-toolbar(app)
-      v-toolbar-title FYI Stocker
+      v-toolbar-items
+        v-btn(flat large @click="$router.push('/')") FYI Stocker
       v-spacer
       v-toolbar-items
         v-btn(flat v-if="isAuthenticated" @click="signOut")
-          span.mr-2 Sign Out
+          .mr-2 Sign Out
           v-icon flight_takeoff
     v-content
       v-container
