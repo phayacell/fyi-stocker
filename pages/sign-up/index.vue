@@ -10,7 +10,7 @@
               v-card-text
                 v-text-field(v-model="email" prepend-icon="email" label="email" type="text" :rules="requiredRules" autofocus)
                 v-text-field(v-model="password" prepend-icon="lock" label="password" type="password" :rules="passwordRules")
-                v-text-field(v-model="confirmPassword" prepend-icon="lock" label="confirm password" type="password" :rules="confirmPasswordRules")
+                v-text-field(v-model="passwordConfirm" prepend-icon="lock" label="confirm password" type="password" :rules="passwordConfirmRules")
               v-card-actions
                 v-btn(type="submit" large color="primary" @click="signUp" :disabled="!valid || loading" :loading="loading") Sign Up
         v-flex(xs12 sm8)
@@ -33,14 +33,14 @@ export default {
     return {
       email: '',
       password: '',
-      confirmPassword: '',
+      passwordConfirm: '',
       valid: false,
       loading: false,
       requiredRules: requiredRules,
       passwordRules: requiredRules.concat([
         v => (v && v.length >= 6) || 'Password should be at least 6 characters.'
       ]),
-      confirmPasswordRules: requiredRules.concat([
+      passwordConfirmRules: requiredRules.concat([
         v => (v && v === this.password) || 'Password do not match.'
       ])
     }
@@ -51,6 +51,10 @@ export default {
   methods: {
     ...mapActions('auth', { authSignUp: 'signUp' }),
     signUp: async function() {
+      if (!this.$refs.form.validate()) {
+        return false
+      }
+
       this.loading = true
       this.authSignUp({
         email: this.email,
