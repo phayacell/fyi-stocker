@@ -15,12 +15,17 @@
       v-spacer
       span &copy; 2018 hayato-yamashita
       v-spacer
+    v-scroll-to-top
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import ScrollToTop from '~/components/ScrollToTop'
 
 export default {
+  components: {
+    'v-scroll-to-top': ScrollToTop
+  },
   computed: {
     ...mapGetters('auth', ['isAuthenticated'])
   },
