@@ -1,7 +1,8 @@
 <template lang="pug">
   v-bottom-sheet(v-model="isShow" lazy)
-    v-btn(slot="activator" fab fixed bottom left color="secondary")
+    v-btn(slot="activator" v-model="isShow" fab fixed bottom left color="secondary")
       v-icon menu
+      v-icon close
     v-list
       v-list-tile(@click="isShow = false" to="/")
         v-list-tile-action
