@@ -8,10 +8,10 @@
       v-card-actions
         template(v-if="mode === 'create'")
           v-btn(type="submit" large color="primary" @click="add" :disabled="!valid || loading" :loading="loading") Stock
-          v-btn(type="button" large color="accent" @click="clear" :disabled="loading") Clear
+          v-btn(type="button" large color="accent" @click="clear" :disabled="loading" :loading="loading") Clear
         template(v-else)
           v-btn(type="submit" large color="primary" @click="update" :disabled="!valid || loading" :loading="loading") Update
-          v-btn(type="button" large color="accent" @click="$emit('close')" :disabled="loading") Cancel
+          v-btn(type="button" large color="accent" @click="$emit('close')" :disabled="loading" :loading="loading") Cancel
 </template>
 
 <script>
