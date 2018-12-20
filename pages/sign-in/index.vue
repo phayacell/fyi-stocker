@@ -4,7 +4,7 @@
       v-layout(row wrap justify-center)
         v-flex(xs12 sm8)
           v-card.elevation-1
-            v-toolbar(dark color="primary")
+            v-toolbar(dark flat color="primary")
               v-toolbar-title Sign in form
             v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
               v-card-text
