@@ -58,6 +58,12 @@ module.exports = {
     }
   },
 
+  // transition
+  transition: {
+    name: 'slide-y-transition',
+    mode: 'out-in'
+  },
+
   // PWA
   manifest: {
     name: 'FYI Stocker',
