@@ -1,7 +1,7 @@
 <template lang="pug">
   v-app
     v-menu
-    v-toolbar(app dark color="primary")
+    v-toolbar(app dark flat color="primary")
       nuxt-link.d-flex(to="/")
         img(src="/logo.svg" alt="logo" height="38px" width="38px" aria-hidden="true")
       v-toolbar-title FYI Stocker
