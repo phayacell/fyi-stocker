@@ -7,8 +7,7 @@
       v-toolbar-title FYI Stocker
     v-content
       v-container
-        v-fade-transition
-          nuxt
+        nuxt
     v-footer
       v-spacer
       span &copy; 2018 hayato-yamashita
