@@ -9,7 +9,7 @@
       v-container
         v-fade-transition
           nuxt
-    v-footer(app)
+    v-footer
       v-spacer
       span &copy; 2018 hayato-yamashita
       v-spacer
