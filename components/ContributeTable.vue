@@ -6,7 +6,7 @@
       v-card-title
         v-spacer
         v-text-field(v-model="search" append-icon="search" label="Search" single-line hide-details)
-      v-data-table.elevation-1(:headers="headers" :items="contributes" :search="search" :loading="loading" :rows-per-page-items="rowsPerPageItems" disable-initial-sort)
+      v-data-table(:headers="headers" :items="contributes" :search="search" :loading="loading" :rows-per-page-items="rowsPerPageItems" disable-initial-sort)
         template(slot="items" slot-scope="props")
           td.text-no-wrap {{ props.item.at }}
           td.px-0.py-2
