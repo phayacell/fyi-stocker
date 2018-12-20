@@ -5,7 +5,8 @@
       v-toolbar-title FYI Stocker
     v-content
       v-container
-        nuxt
+        v-fade-transition
+          nuxt
     v-footer(app)
       v-spacer
       span &copy; 2018 hayato-yamashita

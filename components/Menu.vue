@@ -1,24 +1,21 @@
 <template lang="pug">
   v-bottom-sheet(v-model="isShow" lazy)
-    v-btn(slot="activator" v-model="isShow" fab fixed bottom left color="secondary")
+    v-btn(slot="activator" v-model="isShow" fab fixed bottom left color="primary")
       v-icon menu
       v-icon close
     v-list
       v-list-tile(@click="isShow = false" to="/")
         v-list-tile-action
           v-icon home
-        v-list-tile-content
-          v-list-tile-title Home
+        v-list-tile-content Home
       v-list-tile(disabled)
         v-list-tile-action
           v-icon settings
-        v-list-tile-content
-          v-list-tile-title Settings
+        v-list-tile-content Settings
       v-list-tile(@click="signOut" v-if="isAuthenticated")
         v-list-tile-action
           v-icon flight_takeoff
-        v-list-tile-content
-          v-list-tile-title Sign Out
+        v-list-tile-content Sign Out
 </template>
 
 <script>
