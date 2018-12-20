@@ -62,7 +62,9 @@ module.exports = {
   manifest: {
     name: 'FYI Stocker',
     short_name: 'FYI Stocker',
-    lang: 'ja'
+    lang: 'ja',
+    background_color: '#fff',
+    theme_color: '#009688'
   },
   workbox: {
     dev: true // 開発環境でもPWA
