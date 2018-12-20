@@ -40,7 +40,7 @@ module.exports = {
   plugins: ['@/plugins/vuetify'],
 
   // Nuxt.js modules
-  modules: ['@nuxtjs/dotenv'],
+  modules: ['@nuxtjs/dotenv', '@nuxtjs/pwa'],
 
   // Build configuration
   build: {
@@ -56,5 +56,15 @@ module.exports = {
         })
       }
     }
+  },
+
+  // PWA
+  manifest: {
+    name: 'FYI Stocker',
+    short_name: 'FYI Stocker',
+    lang: 'ja'
+  },
+  workbox: {
+    dev: true // 開発環境でもPWA
   }
 }
