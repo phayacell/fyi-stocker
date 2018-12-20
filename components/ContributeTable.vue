@@ -12,7 +12,7 @@
           td.px-0.py-2
             a(:href="props.item.url" target="_blank") {{ props.item.title }}
           td.layout.justify-center.align-center
-            v-btn.mx-1(flat icon color="info" @click="edit(props.item)")
+            v-btn.mx-1(flat icon color="secondary" @click="edit(props.item)")
               v-icon edit
             v-btn.mx-1(flat icon color="error" @click="remove(props.item)")
               v-icon delete
