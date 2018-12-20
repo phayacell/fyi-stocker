@@ -11,9 +11,11 @@
           td.text-no-wrap {{ props.item.at }}
           td.px-0.py-2
             a(:href="props.item.url" target="_blank") {{ props.item.title }}
-          td.justify-end.layout
-            v-icon.mr-2(small @click="edit(props.item)") edit
-            v-icon(small @click="remove(props.item)") delete
+          td.layout.justify-center.align-center
+            v-btn.mx-1(flat icon color="info" @click="edit(props.item)")
+              v-icon edit
+            v-btn.mx-1(flat icon color="error" @click="remove(props.item)")
+              v-icon delete
 </template>
 
 <script>
@@ -29,7 +31,7 @@ export default {
       headers: [
         { text: 'at', value: 'at' },
         { text: 'link', value: 'title', class: 'px-0' },
-        { text: 'actions', value: 'name', sortable: false, align: 'right' }
+        { text: 'actions', value: 'name', sortable: false, align: 'center' }
       ],
       dialog: false,
       editedContribute: null,
