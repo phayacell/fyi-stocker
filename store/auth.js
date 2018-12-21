@@ -58,5 +58,21 @@ export const actions = {
       console.error('reject[error]: ' + error)
       throw error
     }
+  },
+  async updatePassword({ state, dispatch }, { passwordCurrent, passwordNew }) {
+    try {
+      await dispatch('reauthenticate', passwordCurrent)
+      await state.user.updatePassword(passwordNew)
+    } catch (error) {
+      console.error('reject[error]: ' + error)
+      throw error
+    }
+  },
+  reauthenticate({ state }, passwordCurrent) {
+    const credential = firebase.auth.EmailAuthProvider.credential(
+      state.user.email,
+      passwordCurrent
+    )
+    return state.user.reauthenticateAndRetrieveDataWithCredential(credential)
   }
 }
