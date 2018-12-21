@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   meta: {
@@ -35,12 +35,13 @@ export default {
       rules: [v => !!v || 'Required field.']
     }
   },
-  computed: {
-    ...mapGetters('auth', ['isAuthenticated'])
-  },
   methods: {
     ...mapActions('auth', { authSignIn: 'signIn' }),
     signIn: function() {
+      if (!this.$refs.form.validate()) {
+        return false
+      }
+
       this.loading = true
       this.authSignIn({
         email: this.email,

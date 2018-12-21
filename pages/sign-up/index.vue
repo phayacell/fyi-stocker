@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   meta: {
@@ -44,9 +44,6 @@ export default {
         v => (v && v === this.password) || 'Password do not match.'
       ])
     }
-  },
-  computed: {
-    ...mapGetters('auth', ['isAuthenticated', 'currentUser'])
   },
   methods: {
     ...mapActions('auth', { authSignUp: 'signUp' }),

@@ -10,6 +10,6 @@ Vue.use(Vuetify, {
     info: colors.cyan.base,
     warning: colors.amber.base,
     error: colors.deepOrange.accent4,
-    success: colors.green.accent3
+    success: colors.lightBlue.lighten1
   }
 })

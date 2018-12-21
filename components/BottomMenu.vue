@@ -8,11 +8,11 @@
         v-list-tile-action
           v-icon home
         v-list-tile-content Home
-      v-list-tile(disabled)
+      v-list-tile(v-if="isAuthenticated" @click="isShow = false" to="/settings")
         v-list-tile-action
           v-icon settings
         v-list-tile-content Settings
-      v-list-tile(@click="signOut" v-if="isAuthenticated")
+      v-list-tile(v-if="isAuthenticated" @click="signOut")
         v-list-tile-action
           v-icon flight_takeoff
         v-list-tile-content Sign Out
