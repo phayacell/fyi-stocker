@@ -29,10 +29,6 @@ export default {
   },
   data() {
     return {
-      headers: [
-        { text: 'at', value: 'at' },
-        { text: 'link', value: 'title', class: 'pl-0' }
-      ],
       sheet: false,
       editedContribute: null,
       search: ''
@@ -41,6 +37,12 @@ export default {
   computed: {
     ...mapGetters('auth', ['currentUser']),
     ...mapGetters('contributes', ['contributes', 'loading']),
+    headers: function() {
+      return [
+        { text: 'at', value: 'at' },
+        { text: 'link', value: 'title', class: 'pl-0' }
+      ]
+    },
     rowsPerPageItems: function() {
       return [
         50,
@@ -53,7 +55,7 @@ export default {
     this.initialize(this.currentUser.uid)
   },
   methods: {
-    ...mapActions('contributes', ['initialize', 'delete']),
+    ...mapActions('contributes', ['initialize']),
     edit(contribute) {
       this.editedContribute = Object.assign({ id: contribute.id }, contribute)
       this.sheet = true
@@ -61,10 +63,6 @@ export default {
     close() {
       this.editedContribute = null
       this.sheet = false
-    },
-    remove(contribute) {
-      confirm('Are you sure you want to delete this contribute?') &&
-        this.delete(contribute)
     }
   }
 }
