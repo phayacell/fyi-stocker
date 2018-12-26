@@ -1,7 +1,12 @@
 <template lang="pug">
   div
-    v-dialog(v-model="dialog" max-width="600px" persistent)
-      contribute-form(v-if="editedContribute" :contribute="editedContribute" mode="edit" @close="updated")
+    v-bottom-sheet(v-model="sheet")
+      v-card
+        v-toolbar(dark color="primary")
+          v-btn(icon dark @click="close")
+            v-icon close
+          v-toolbar-title Edit / Remove
+        contribute-form.pa-3(v-if="editedContribute" :contribute="editedContribute" mode="edit" @close="close")
     v-card
       v-card-title
         v-spacer
@@ -11,7 +16,7 @@
           tr(@click="edit(props.item)")
             td.text-no-wrap {{ props.item.at }}
             td.pl-0.py-2
-              a(:href="props.item.url" target="_blank") {{ props.item.title }}
+              a(:href="props.item.url" target="_blank" @click.stop) {{ props.item.title }}
 </template>
 
 <script>
@@ -28,7 +33,7 @@ export default {
         { text: 'at', value: 'at' },
         { text: 'link', value: 'title', class: 'pl-0' }
       ],
-      dialog: false,
+      sheet: false,
       editedContribute: null,
       search: ''
     }
@@ -51,11 +56,11 @@ export default {
     ...mapActions('contributes', ['initialize', 'delete']),
     edit(contribute) {
       this.editedContribute = Object.assign({ id: contribute.id }, contribute)
-      this.dialog = true
+      this.sheet = true
     },
-    updated() {
+    close() {
       this.editedContribute = null
-      this.dialog = false
+      this.sheet = false
     },
     remove(contribute) {
       confirm('Are you sure you want to delete this contribute?') &&

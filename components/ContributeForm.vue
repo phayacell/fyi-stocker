@@ -10,11 +10,8 @@
           v-btn(type="submit" large color="primary" @click="add" :disabled="!valid || loading" :loading="loading") Stock
           v-btn(type="button" large color="accent" @click="clear" :disabled="loading" :loading="loading") Clear
         template(v-else)
-          v-btn(type="submit" large color="primary" @click="update" :disabled="!valid || loading" :loading="loading") Update
-          v-btn(type="button" large color="accent" @click="$emit('close')" :disabled="loading" :loading="loading") Cancel
-      template(v-if="mode === 'edit'")
-        v-divider.my-2
-        v-card-actions
+          v-btn(type="submit" large color="primary" @click="update" :disabled="!valid || loading" :loading="loading") Submit
+          v-spacer
           v-btn(type="button" large color="error" @click="remove" :disabled="loading" :loading="loading") Remove
 </template>
 
