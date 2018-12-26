@@ -4,34 +4,32 @@
       v-toolbar-title Change Password
     v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
       v-card-text
-        v-text-field(v-model="passwordCurrent" prepend-icon="lock" label="current password" type="password" :rules="requiredRules")
-        v-text-field(v-model="passwordNew" prepend-icon="lock" label="new password" type="password" :rules="passwordRules")
-        v-text-field(v-model="passwordConfirm" prepend-icon="lock" label="confirm new password" type="password" :rules="passwordConfirmRules")
+        v-text-field(v-model="passwordCurrent" prepend-icon="lock" label="current password" type="password" :rules="rules")
+        v-password-field(v-model="passwordNew" label="new passowrd")
+        v-password-field(v-model="passwordConfirm" label="confirm new password" :confirm="passwordNew")
       v-card-actions
         v-btn(type="submit" large color="primary" @click="changePassword" :disabled="!valid || loading" :loading="loading") Submit
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import VPasswordField from '~/components/VPasswordField'
 
 export default {
+  components: {
+    'v-password-field': VPasswordField
+  },
   data() {
-    const requiredRules = [v => !!v || 'Required field.']
-
     return {
       passwordCurrent: '',
       passwordNew: '',
       passwordConfirm: '',
       valid: false,
-      loading: false,
-      requiredRules: requiredRules,
-      passwordRules: requiredRules.concat([
-        v => (v && v.length >= 6) || 'Password should be at least 6 characters.'
-      ]),
-      passwordConfirmRules: requiredRules.concat([
-        v => (v && v === this.passwordNew) || 'Password do not match.'
-      ])
+      loading: false
     }
+  },
+  computed: {
+    rules: () => [v => !!v || 'Required field.']
   },
   methods: {
     ...mapActions('auth', { authUpdatePassword: 'updatePassword' }),

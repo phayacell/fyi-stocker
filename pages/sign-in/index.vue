@@ -9,7 +9,7 @@
             v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
               v-card-text
                 v-text-field(v-model="email" prepend-icon="email" label="email" type="text" :rules="rules" autofocus)
-                v-text-field(v-model="password" prepend-icon="lock" label="password" type="password" :rules="rules")
+                v-password-field(v-model="password")
               v-card-actions
                 v-btn(type="submit" large color="primary" @click="signIn" :disabled="!valid || loading" :loading="loading") Sign In
         v-flex(xs12 sm8)
@@ -20,20 +20,26 @@
 
 <script>
 import { mapActions } from 'vuex'
+import VPasswordField from '~/components/VPasswordField'
 
 export default {
   meta: {
     ignoreAuth: true,
     rejectedCertified: true
   },
+  components: {
+    'v-password-field': VPasswordField
+  },
   data() {
     return {
       email: '',
       password: '',
       valid: false,
-      loading: false,
-      rules: [v => !!v || 'Required field.']
+      loading: false
     }
+  },
+  computed: {
+    rules: () => [v => !!v || 'Required field.']
   },
   methods: {
     ...mapActions('auth', { authSignIn: 'signIn' }),
