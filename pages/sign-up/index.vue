@@ -2,18 +2,18 @@
   v-content
     v-container(grid-list-xl)
       v-layout(row wrap justify-center)
-        v-flex(xs12 sm8)
+        v-flex(xs12)
           v-card.elevation-1
             v-toolbar(dark flat color="primary")
               v-toolbar-title Sign up form
             v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
               v-card-text
-                v-text-field(v-model="email" prepend-icon="email" label="email" type="text" :rules="requiredRules" autofocus)
-                v-text-field(v-model="password" prepend-icon="lock" label="password" type="password" :rules="passwordRules")
-                v-text-field(v-model="passwordConfirm" prepend-icon="lock" label="confirm password" type="password" :rules="passwordConfirmRules")
+                v-text-field(v-model="email" prepend-icon="email" label="email" type="email" :rules="$rules.required" autofocus)
+                v-password-field(v-model="password" label="password")
+                v-password-field(v-model="passwordConfirm" label="confirm password" :confirm="password")
               v-card-actions
                 v-btn(type="submit" large color="primary" @click="signUp" :disabled="!valid || loading" :loading="loading") Sign Up
-        v-flex(xs12 sm8)
+        v-flex(xs12)
           v-card.elevation-1
             v-card-text.text-xs-center
               nuxt-link(color="primary" to="/sign-in") Already have an account?
@@ -28,26 +28,17 @@ export default {
     rejectedCertified: true
   },
   data() {
-    const requiredRules = [v => !!v || 'Required field.']
-
     return {
       email: '',
       password: '',
       passwordConfirm: '',
       valid: false,
-      loading: false,
-      requiredRules: requiredRules,
-      passwordRules: requiredRules.concat([
-        v => (v && v.length >= 6) || 'Password should be at least 6 characters.'
-      ]),
-      passwordConfirmRules: requiredRules.concat([
-        v => (v && v === this.password) || 'Password do not match.'
-      ])
+      loading: false
     }
   },
   methods: {
     ...mapActions('auth', { authSignUp: 'signUp' }),
-    signUp: async function() {
+    signUp() {
       if (!this.$refs.form.validate()) {
         return false
       }

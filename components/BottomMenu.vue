@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     ...mapActions('auth', { authSignOut: 'signOut' }),
-    signOut: async function() {
+    async signOut() {
       await this.authSignOut()
       await this.$router.push('/sign-in')
       this.isShow = false

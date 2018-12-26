@@ -37,7 +37,7 @@ module.exports = {
   css: ['~/assets/style/app.styl'],
 
   // Plugins to load before mounting the App
-  plugins: ['@/plugins/vuetify'],
+  plugins: ['@/plugins/vuetify', '@/plugins/form/field', '@/plugins/form/rule'],
 
   // Nuxt.js modules
   modules: ['@nuxtjs/dotenv', '@nuxtjs/pwa'],

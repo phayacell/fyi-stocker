@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(v-scroll="onScroll")
+  section(v-scroll="onScroll")
     v-fab-transition
       v-btn(fab fixed bottom right color="secondary" v-show="offsetTop > boundary" @click="$vuetify.goTo(0)")
         v-icon keyboard_arrow_up
@@ -19,7 +19,7 @@ export default {
     }
   },
   methods: {
-    onScroll: function(e) {
+    onScroll() {
       this.offsetTop = window.pageYOffset || document.documentElement.scrollTop
     }
   }

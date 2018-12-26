@@ -1,6 +1,6 @@
 <template lang="pug">
-  section.container
-    v-container(fluid grid-list-lg)
+  section
+    v-container
       .display-2.primary--text.mb-3 Settings
       v-layout(row wrap)
         v-flex(xs12)
@@ -23,7 +23,7 @@ export default {
     }
   },
   methods: {
-    completed: function(message) {
+    completed(message) {
       this.snackbar = true
       this.snackbarMessage = message
     }
