@@ -9,7 +9,7 @@
             v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
               v-card-text
                 v-text-field(v-model="email" prepend-icon="email" label="email" type="text" :rules="$rules.required" autofocus)
-                v-password-field(v-model="password")
+                v-password-field(v-model="password" label="password")
               v-card-actions
                 v-btn(type="submit" large color="primary" @click="signIn" :disabled="!valid || loading" :loading="loading") Sign In
         v-flex(xs12 sm8)
