@@ -2,7 +2,7 @@
   v-content
     v-container(grid-list-xl)
       v-layout(row wrap justify-center)
-        v-flex(xs12 sm8)
+        v-flex(xs12)
           v-card.elevation-1
             v-toolbar(dark color="primary")
               v-toolbar-title Verify your email

@@ -2,7 +2,7 @@
   v-content
     v-container(grid-list-xl)
       v-layout(row wrap justify-center)
-        v-flex(xs12 sm8)
+        v-flex(xs12)
           v-card.elevation-1
             v-toolbar(dark flat color="primary")
               v-toolbar-title Sign in form
@@ -12,7 +12,7 @@
                 v-password-field(v-model="password" label="password")
               v-card-actions
                 v-btn(type="submit" large color="primary" @click="signIn" :disabled="!valid || loading" :loading="loading") Sign In
-        v-flex(xs12 sm8)
+        v-flex(xs12)
           v-card.elevation-1
             v-card-text.text-xs-center
               nuxt-link(color="primary" to="/sign-up") Create account?

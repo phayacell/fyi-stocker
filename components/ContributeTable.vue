@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  section
     v-bottom-sheet(v-model="sheet")
       v-card
         v-toolbar(dark color="primary")

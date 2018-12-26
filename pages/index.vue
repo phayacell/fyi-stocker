@@ -1,8 +1,8 @@
 <template lang="pug">
-  section.container
-    v-container(fluid grid-list-lg)
+  section
+    v-container
       contribute-form
-    v-container(fluid grid-list-lg)
+    v-container
       contribute-table
 </template>
 
