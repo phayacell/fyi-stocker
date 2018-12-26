@@ -21,15 +21,11 @@
 
 <script>
 import { mapActions } from 'vuex'
-import VPasswordField from '~/components/VPasswordField'
 
 export default {
   meta: {
     ignoreAuth: true,
     rejectedCertified: true
-  },
-  components: {
-    'v-password-field': VPasswordField
   },
   data() {
     return {

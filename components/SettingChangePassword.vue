@@ -13,12 +13,8 @@
 
 <script>
 import { mapActions } from 'vuex'
-import VPasswordField from '~/components/VPasswordField'
 
 export default {
-  components: {
-    'v-password-field': VPasswordField
-  },
   data() {
     return {
       passwordCurrent: '',
