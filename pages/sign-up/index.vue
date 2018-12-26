@@ -8,7 +8,7 @@
               v-toolbar-title Sign up form
             v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
               v-card-text
-                v-text-field(v-model="email" prepend-icon="email" label="email" type="text" :rules="rules" autofocus)
+                v-text-field(v-model="email" prepend-icon="email" label="email" type="text" :rules="$rules.required" autofocus)
                 v-password-field(v-model="password" label="password")
                 v-password-field(v-model="passwordConfirm" label="confirm password" :confirm="password")
               v-card-actions
@@ -35,9 +35,6 @@ export default {
       valid: false,
       loading: false
     }
-  },
-  computed: {
-    rules: () => [v => !!v || 'Required field.']
   },
   methods: {
     ...mapActions('auth', { authSignUp: 'signUp' }),

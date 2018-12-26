@@ -48,10 +48,9 @@ export default {
         : 'At least 6 characters and match to password.'
     },
     rules: function() {
-      const rules = [
-        v => !!v || 'Required field.',
+      const rules = this.$rules.required.concat([
         v => (v && v.length >= 6) || 'Password should be at least 6 characters.'
-      ]
+      ])
 
       return typeof this.confirm === 'undefined'
         ? rules

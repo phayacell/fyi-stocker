@@ -4,7 +4,7 @@
       v-toolbar-title Change Password
     v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
       v-card-text
-        v-text-field(v-model="passwordCurrent" prepend-icon="lock" label="current password" type="password" :rules="rules")
+        v-text-field(v-model="passwordCurrent" prepend-icon="lock" label="current password" type="password" :rules="$rules.required")
         v-password-field(v-model="passwordNew" label="new passowrd")
         v-password-field(v-model="passwordConfirm" label="confirm new password" :confirm="passwordNew")
       v-card-actions
@@ -23,9 +23,6 @@ export default {
       valid: false,
       loading: false
     }
-  },
-  computed: {
-    rules: () => [v => !!v || 'Required field.']
   },
   methods: {
     ...mapActions('auth', { authUpdatePassword: 'updatePassword' }),
