@@ -12,6 +12,10 @@
         template(v-else)
           v-btn(type="submit" large color="primary" @click="update" :disabled="!valid || loading" :loading="loading") Update
           v-btn(type="button" large color="accent" @click="$emit('close')" :disabled="loading" :loading="loading") Cancel
+      template(v-if="mode === 'edit'")
+        v-divider.my-2
+        v-card-actions
+          v-btn(type="button" large color="error" @click="remove" :disabled="loading" :loading="loading") Remove
 </template>
 
 <script>
@@ -52,7 +56,8 @@ export default {
   methods: {
     ...mapActions('contributes', {
       addContribute: 'add',
-      updateContribute: 'update'
+      updateContribute: 'update',
+      deleteContribute: 'delete'
     }),
     add() {
       if (!this.$refs.form.validate()) {
@@ -71,6 +76,14 @@ export default {
       }
 
       this.updateContribute(this.convertContribute())
+      this.$emit('close')
+    },
+    async remove() {
+      if (!confirm('Are you sure you want to delete this contribute?')) {
+        return false
+      }
+
+      await this.deleteContribute(this.contribute)
       this.$emit('close')
     },
     clear() {
