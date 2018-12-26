@@ -42,21 +42,21 @@ export default {
         }
       }
     },
-    hint: function() {
-      return typeof this.confirm === 'undefined'
-        ? 'At least 6 characters.'
-        : 'At least 6 characters and match to password.'
-    },
-    rules: function() {
-      const rules = this.$rules.required.concat([
+    isConfirm: context => typeof context.confirm !== 'undefined',
+    hint: context =>
+      context.isConfirm
+        ? 'At least 6 characters and match to password.'
+        : 'At least 6 characters.',
+    rules(context) {
+      const rules = context.$rules.required.concat([
         v => (v && v.length >= 6) || 'Password should be at least 6 characters.'
       ])
 
-      return typeof this.confirm === 'undefined'
-        ? rules
-        : rules.concat([
-            v => (v && v === this.confirm) || 'Password do not match.'
+      return context.isConfirm
+        ? rules.concat([
+            v => (v && v === context.confirm) || 'Password do not match.'
           ])
+        : rules
     }
   }
 }

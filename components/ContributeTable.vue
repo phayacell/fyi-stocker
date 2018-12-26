@@ -37,13 +37,13 @@ export default {
   computed: {
     ...mapGetters('auth', ['currentUser']),
     ...mapGetters('contributes', ['contributes', 'loading']),
-    headers: function() {
+    headers() {
       return [
         { text: 'at', value: 'at' },
         { text: 'link', value: 'title', class: 'pl-0' }
       ]
     },
-    rowsPerPageItems: function() {
+    rowsPerPageItems() {
       return [
         50,
         100,

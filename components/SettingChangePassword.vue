@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     ...mapActions('auth', { authUpdatePassword: 'updatePassword' }),
-    changePassword: function() {
+    changePassword() {
       if (!this.$refs.form.validate()) {
         return false
       }

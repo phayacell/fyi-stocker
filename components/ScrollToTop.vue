@@ -19,7 +19,7 @@ export default {
     }
   },
   methods: {
-    onScroll: function(e) {
+    onScroll() {
       this.offsetTop = window.pageYOffset || document.documentElement.scrollTop
     }
   }

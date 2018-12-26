@@ -26,24 +26,17 @@ export default {
   },
   computed: {
     ...mapGetters('contributes', {
-      origins: 'contributes',
+      originContributes: 'contributes',
       loading: 'loading'
     }),
-    query: function() {
-      return this.$route.query
-    },
-    from: function() {
-      return new Date(this.query.from)
-    },
-    to: function() {
-      return new Date(this.query.to)
-    },
-    contributes: function() {
-      return this.origins.filter(contribute => {
+    query: context => context.$route.query,
+    from: context => new Date(context.query.from),
+    to: context => new Date(context.query.to),
+    contributes: context =>
+      context.originContributes.filter(contribute => {
         const at = new Date(contribute.at)
-        return this.from <= at && at <= this.to
+        return context.from <= at && at <= context.to
       })
-    }
   },
   created() {
     this.initialize(this.query.uid)

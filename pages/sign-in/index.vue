@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     ...mapActions('auth', { authSignIn: 'signIn' }),
-    signIn: function() {
+    signIn() {
       if (!this.$refs.form.validate()) {
         return false
       }

@@ -23,7 +23,7 @@ export default {
     }
   },
   methods: {
-    completed: function(message) {
+    completed(message) {
       this.snackbar = true
       this.snackbarMessage = message
     }
