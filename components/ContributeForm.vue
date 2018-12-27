@@ -17,6 +17,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import format from 'date-fns/format'
 
 export default {
   props: {
@@ -46,7 +47,7 @@ export default {
   },
   created() {
     if (this.mode === 'create') {
-      this.contribute.at = this.formatDate()
+      this.initializeContribute()
     }
   },
   methods: {
@@ -55,6 +56,11 @@ export default {
       updateContribute: 'update',
       deleteContribute: 'delete'
     }),
+    initializeContribute() {
+      this.contribute.at = this.formatDate()
+      this.contribute.url = ''
+      this.contribute.title = ''
+    },
     add() {
       if (!this.$refs.form.validate()) {
         return false
@@ -85,7 +91,7 @@ export default {
     clear() {
       this.$refs.form.reset()
       this.$nextTick(() => {
-        this.contribute.at = this.formatDate()
+        this.initializeContribute()
       })
     },
     convertContribute() {
@@ -111,13 +117,7 @@ export default {
       }
     },
     formatDate(text) {
-      const date = text ? new Date(text) : new Date()
-
-      return [
-        date.getFullYear(),
-        ('0' + (date.getMonth() + 1)).slice(-2),
-        ('0' + date.getDate()).slice(-2)
-      ].join('-')
+      return format(text || new Date(), 'YYYY-MM-DD')
     },
     isURL(str) {
       const matcher = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/
