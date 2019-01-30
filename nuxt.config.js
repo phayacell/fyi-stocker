@@ -71,8 +71,5 @@ module.exports = {
     lang: 'ja',
     background_color: '#fff',
     theme_color: '#009688'
-  },
-  workbox: {
-    dev: true // 開発環境でもPWA
   }
 }
