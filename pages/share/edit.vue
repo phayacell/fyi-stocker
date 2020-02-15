@@ -4,8 +4,8 @@
       v-card
         v-form(ref="form" v-model="valid" @submit.prevent)
           v-card-text
-            v-text-field(v-model="shareFrom" @blur="shareFrom = formatDate(shareFrom)" prepend-icon="calendar_today" label="from" :rules="$rules.required" required :disabled="formLoading")
-            v-text-field(v-model="shareTo" @blur="shareTo = formatDate(shareTo)" prepend-icon="calendar_today" label="to" :rules="$rules.required" required :disabled="formLoading")
+            v-text-field(v-model="shareFrom" @blur="shareFrom = formatDate(shareFrom)" prepend-icon="calendar_today" label="from" :rules="rules" required :disabled="formLoading")
+            v-text-field(v-model="shareTo" @blur="shareTo = formatDate(shareTo)" prepend-icon="calendar_today" label="to" :rules="rules" required :disabled="formLoading")
           v-card-actions
             v-btn(type="submit" large color="primary" @click="submit" :disabled="!valid || formLoading" :loading="formLoading") Create link
             v-btn(type="button" large color="accent" @click="clear" :disabled="formLoading" :loading="formLoading") Clear
@@ -36,16 +36,9 @@ export default {
       originContributes: 'contributes',
       contributeLoading: 'loading'
     }),
-    dateRegex: () => RegExp(/^\d{4}-\d{2}-\d{2}/),
-    isValid: context => {
-      if (!context.shareFrom) return false
-      if (!context.shareTo) return false
-      if (!context.dateRegex.test(context.shareFrom)) return false
-      if (!context.dateRegex.test(context.shareTo)) return false
-      return true
-    },
+    rules: context => context.$rules.required.concat(context.$rules.dateFormat),
     contributes: context => {
-      if (!context.isValid) return []
+      if (!context.valid) return []
 
       const shareFrom = new Date(context.shareFrom)
       const shareTo = new Date(context.shareTo)
@@ -62,7 +55,7 @@ export default {
   methods: {
     ...mapActions('contributes', ['initialize']),
     submit() {
-      if (!this.$refs.form.validate()) return false
+      if (!this.valid) return false
 
       this.shareFrom = this.formatDate(this.shareFrom)
       this.shareTo = this.formatDate(this.shareTo)

@@ -2,7 +2,7 @@
   v-card
     v-form(v-if="contribute" ref="form" v-model="valid" @submit.prevent)
       v-card-text
-        v-text-field(v-model="contribute.at" prepend-icon="calendar_today" label="AT" :rules="$rules.required" required :disabled="loading")
+        v-text-field(v-model="contribute.at" prepend-icon="calendar_today" label="AT" :rules="$rules.required.concat($rules.dateFormat)" required :disabled="loading")
         v-text-field(v-model="contribute.url" prepend-icon="link" label="URL" :rules="$rules.required" required :disabled="loading" @paste="loadTitle" autofocus)
         v-text-field(v-model="contribute.title" prepend-icon="text_format" label="TITLE" :rules="$rules.required" required :disabled="loading")
       v-card-actions
