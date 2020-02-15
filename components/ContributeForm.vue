@@ -117,7 +117,8 @@ export default {
       }
     },
     formatDate(text) {
-      return format(text || new Date(), 'YYYY-MM-DD')
+      if (text) return format(new Date(text), 'yyyy-MM-dd')
+      return format(new Date(), 'yyyy-MM-dd')
     },
     isURL(str) {
       const matcher = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/

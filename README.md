@@ -1,35 +1,35 @@
 # FYI Stocker
 
-[![CircleCI](https://circleci.com/gh/hayato-yamashita/fyi-stocker.svg?style=svg&circle-token=7828e4d68ed4bc296c9811e6e9417e53ae654a1e)](https://circleci.com/gh/hayato-yamashita/fyi-stocker)
+[![CircleCI](https://circleci.com/gh/phayacell/fyi-stocker.svg?style=svg&circle-token=7828e4d68ed4bc296c9811e6e9417e53ae654a1e)](https://circleci.com/gh/phayacell/fyi-stocker)
 
 FYI に投稿した URL をストックするサービス。
 
 ## Required
 
-- [Docker](https://www.docker.com/)
-- [docker-compose](https://docs.docker.com/compose/)
+- [Node.js](https://nodejs.org/ja/)
+- [Yarn](https://classic.yarnpkg.com/ja/)
 
 ### Versions
 
 ```bash
-$ docker -v
-Docker version 18.09.0, build 4d60db4
+$ node -v
+v12.16.0
 ```
 
 ```bash
-$ docker-compose -v
-docker-compose version 1.23.2, build 1110ad01
+$ yarn -v
+1.22.0
 ```
 
 ## Build Setup
 
 ```bash
 # install dependencies
-$ docker-compose build
+$ yarn install
 
 # serve with hot reload at localhost:3000
-$ docker-compose up
+$ yarn dev
 
 # generate static project
-$ docker-compose run --rm nuxt yarn run generate
+$ yarn run generate
 ```

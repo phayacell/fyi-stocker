@@ -1,7 +1,7 @@
-import { firebaseMutations } from 'vuexfire'
+import { vuexfireMutations } from 'vuexfire'
 
 export const strict = false
 
 export const mutations = {
-  ...firebaseMutations
+  ...vuexfireMutations
 }
