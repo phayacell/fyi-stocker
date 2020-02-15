@@ -1,8 +1,8 @@
 <template lang="pug">
   v-card.elevation-1
     v-toolbar(dark flat color="primary")
-      v-toolbar-title Change Email
-    v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
+      v-toolbar-title Change email
+    v-form(v-model="valid" ref="form" @submit.prevent)
       v-card-text
         v-text-field(:value="currentEmail" prepend-icon="email" label="current email" type="email" readonly)
         v-text-field(v-model="newEmail" prepend-icon="email" label="new email" type="email" :rules="$rules.required")

@@ -6,7 +6,7 @@
           v-card.elevation-1
             v-toolbar(dark flat color="primary")
               v-toolbar-title Sign up form
-            v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
+            v-form(v-model="valid" ref="form" @submit.prevent)
               v-card-text
                 v-text-field(v-model="email" prepend-icon="email" label="email" type="email" :rules="$rules.required" autofocus)
                 v-password-field(v-model="password" label="password")

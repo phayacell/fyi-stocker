@@ -1,8 +1,8 @@
 <template lang="pug">
   v-card.elevation-1
     v-toolbar(dark flat color="primary")
-      v-toolbar-title Change Password
-    v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
+      v-toolbar-title Change password
+    v-form(v-model="valid" ref="form" @submit.prevent)
       v-card-text
         v-text-field(v-model="currentPassword" prepend-icon="lock" label="current password" type="password" :rules="$rules.required")
         v-password-field(v-model="newPassword" label="new passowrd")
@@ -43,7 +43,7 @@ export default {
             this.newPassword = ''
             this.confirmPassword = ''
           })
-          this.$emit('completed', 'Password Changed.')
+          this.$emit('completed', 'Password changed.')
         })
         .catch(error => {
           alert(error)

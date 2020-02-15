@@ -1,7 +1,7 @@
 <template lang="pug">
   v-card.elevation-1
     v-toolbar(dark flat color="error")
-      v-toolbar-title Delete Account
+      v-toolbar-title Delete account
     v-form(v-model="valid" ref="form" @submit.prevent)
       v-card-text
         p.mb-4 Once you delete your account, there is no going back. Please be certain.
