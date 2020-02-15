@@ -4,9 +4,9 @@
       v-toolbar-title Change Password
     v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
       v-card-text
-        v-text-field(v-model="passwordCurrent" prepend-icon="lock" label="current password" type="password" :rules="$rules.required")
-        v-password-field(v-model="passwordNew" label="new passowrd")
-        v-password-field(v-model="passwordConfirm" label="confirm new password" :confirm="passwordNew")
+        v-text-field(v-model="currentPassword" prepend-icon="lock" label="current password" type="password" :rules="$rules.required")
+        v-password-field(v-model="newPassword" label="new passowrd")
+        v-password-field(v-model="confirmPassword" label="confirm new password" :confirm="newPassword")
       v-card-actions
         v-btn(type="submit" large color="primary" @click="changePassword" :disabled="!valid || loading" :loading="loading") Submit
 </template>
@@ -17,9 +17,9 @@ import { mapActions } from 'vuex'
 export default {
   data() {
     return {
-      passwordCurrent: '',
-      passwordNew: '',
-      passwordConfirm: '',
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
       valid: false,
       loading: false
     }
@@ -33,15 +33,15 @@ export default {
 
       this.loading = true
       this.authUpdatePassword({
-        passwordCurrent: this.passwordCurrent,
-        passwordNew: this.passwordNew
+        currentPassword: this.currentPassword,
+        newPassword: this.newPassword
       })
         .then(() => {
           this.$refs.form.reset()
           this.$nextTick(() => {
-            this.passwordCurrent = ''
-            this.passwordNew = ''
-            this.passwordConfirm = ''
+            this.currentPassword = ''
+            this.newPassword = ''
+            this.confirmPassword = ''
           })
           this.$emit('completed', 'Password Changed.')
         })

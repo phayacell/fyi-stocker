@@ -69,19 +69,19 @@ export const actions = {
       throw error
     }
   },
-  async updatePassword({ state, dispatch }, { passwordCurrent, passwordNew }) {
+  async updatePassword({ state, dispatch }, { currentPassword, newPassword }) {
     try {
-      await dispatch('reauthenticate', passwordCurrent)
-      await state.user.updatePassword(passwordNew)
+      await dispatch('reauthenticate', currentPassword)
+      await state.user.updatePassword(newPassword)
     } catch (error) {
       console.error('reject[error]: ' + error)
       throw error
     }
   },
-  reauthenticate({ state }, passwordCurrent) {
+  reauthenticate({ state }, currentPassword) {
     const credential = firebase.auth.EmailAuthProvider.credential(
       state.user.email,
-      passwordCurrent
+      currentPassword
     )
     return state.user.reauthenticateAndRetrieveDataWithCredential(credential)
   }
