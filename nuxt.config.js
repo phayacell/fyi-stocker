@@ -59,7 +59,7 @@ module.exports = {
   },
 
   // transition
-  transition: {
+  pageTransition: {
     name: 'slide-y-transition',
     mode: 'out-in'
   },

@@ -1,4 +1,4 @@
-import { firebaseMutations, firebaseAction } from 'vuexfire'
+import { vuexfireMutations, firestoreAction } from 'vuexfire'
 import firebase from '~/plugins/firebase'
 
 const db = firebase.firestore()
@@ -15,15 +15,15 @@ export const getters = {
 }
 
 export const mutations = {
-  ...firebaseMutations,
+  ...vuexfireMutations,
   startLoad: state => (state.loading = true),
   endLoad: state => (state.loading = false)
 }
 
 export const actions = {
-  initialize: firebaseAction(async ({ commit, bindFirebaseRef }, uid) => {
+  initialize: firestoreAction(async ({ commit, bindFirestoreRef }, uid) => {
     commit('startLoad')
-    await bindFirebaseRef(
+    await bindFirestoreRef(
       'contributes',
       contributesRef
         .where('uid', '==', uid)
@@ -32,7 +32,7 @@ export const actions = {
     )
     commit('endLoad')
   }),
-  add: firebaseAction(({}, data) => {
+  add: firestoreAction(({}, data) => {
     contributesRef.add({
       uid: data.uid,
       at: data.contribute.at,
@@ -41,14 +41,14 @@ export const actions = {
       created: firebase.firestore.FieldValue.serverTimestamp()
     })
   }),
-  update: firebaseAction(({}, contribute) => {
+  update: firestoreAction(({}, contribute) => {
     contributesRef.doc(contribute.id).update({
       at: contribute.at,
       url: contribute.url,
       title: contribute.title
     })
   }),
-  delete: firebaseAction(({}, contribute) => {
+  delete: firestoreAction(({}, contribute) => {
     contributesRef.doc(contribute.id).delete()
   })
 }

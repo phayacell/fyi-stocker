@@ -10,7 +10,7 @@
         nuxt
     v-footer
       v-spacer
-      span &copy; 2018 hayato-yamashita
+      span &copy; 2018 phayacell
       v-spacer
     v-scroll-to-top
 </template>
