@@ -59,6 +59,16 @@ export const actions = {
       throw error
     }
   },
+  async updateEmail({ state, dispatch }, { currentPassword, newEmail }) {
+    try {
+      await dispatch('reauthenticate', currentPassword)
+      await state.user.updateEmail(newEmail)
+      await state.user.updateProfile({ displayName: newEmail })
+    } catch (error) {
+      console.error('reject[error]: ' + error)
+      throw error
+    }
+  },
   async updatePassword({ state, dispatch }, { passwordCurrent, passwordNew }) {
     try {
       await dispatch('reauthenticate', passwordCurrent)
