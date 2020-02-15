@@ -64,6 +64,7 @@ export const actions = {
       await dispatch('reauthenticate', currentPassword)
       await state.user.updateEmail(newEmail)
       await state.user.updateProfile({ displayName: newEmail })
+      await state.user.sendEmailVerification({ url: location.origin })
     } catch (error) {
       console.error('reject[error]: ' + error)
       throw error
