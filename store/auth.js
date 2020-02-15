@@ -79,6 +79,16 @@ export const actions = {
       throw error
     }
   },
+  async deleteAccount({ state, dispatch }, { currentPassword }) {
+    try {
+      await dispatch('reauthenticate', currentPassword)
+      await state.user.delete()
+      console.log('delete account')
+    } catch (error) {
+      console.error('reject[error]: ' + error)
+      throw error
+    }
+  },
   reauthenticate({ state }, currentPassword) {
     const credential = firebase.auth.EmailAuthProvider.credential(
       state.user.email,
