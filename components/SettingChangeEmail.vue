@@ -1,49 +1,53 @@
 <template lang="pug">
   v-card.elevation-1
     v-toolbar(dark flat color="primary")
-      v-toolbar-title Change Password
+      v-toolbar-title Change Email
     v-form(v-model="valid" ref="form" lazy-validation @submit.prevent)
       v-card-text
+        v-text-field(:value="currentUser.email" prepend-icon="email" label="current email" type="email" readonly)
+        v-text-field(v-model="newEmail" prepend-icon="email" label="new email" type="email" :rules="$rules.required")
         v-text-field(v-model="currentPassword" prepend-icon="lock" label="current password" type="password" :rules="$rules.required")
-        v-password-field(v-model="newPassword" label="new passowrd")
-        v-password-field(v-model="confirmPassword" label="confirm new password" :confirm="newPassword")
       v-card-actions
-        v-btn(type="submit" large color="primary" @click="changePassword" :disabled="!valid || loading" :loading="loading") Submit
+        v-btn(type="submit" large color="primary" @click="changeEmail" :disabled="!valid || loading" :loading="loading") Submit
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data() {
     return {
       currentPassword: '',
-      newPassword: '',
-      confirmPassword: '',
+      newEmail: '',
       valid: false,
       loading: false
     }
   },
+  computed: {
+    ...mapGetters('auth', ['currentUser']),
+    completedMessage() {
+      return 'Please access the authentication link in the confirmation email sent and complete the authentication.'
+    }
+  },
   methods: {
-    ...mapActions('auth', { authUpdatePassword: 'updatePassword' }),
-    changePassword() {
+    ...mapActions('auth', { authUpdateEmail: 'updateEmail' }),
+    changeEmail() {
       if (!this.$refs.form.validate()) {
         return false
       }
 
       this.loading = true
-      this.authUpdatePassword({
+      this.authUpdateEmail({
         currentPassword: this.currentPassword,
-        newPassword: this.newPassword
+        newEmail: this.newEmail
       })
         .then(() => {
           this.$refs.form.reset()
           this.$nextTick(() => {
             this.currentPassword = ''
-            this.newPassword = ''
-            this.confirmPassword = ''
+            this.newEmail = ''
           })
-          this.$emit('completed', 'Password Changed.')
+          this.$emit('completed', this.completedMessage)
         })
         .catch(error => {
           alert(error)
