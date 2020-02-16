@@ -1,14 +1,21 @@
 <template lang="pug">
   section
+    v-bottom-sheet(v-model="sheet")
+      v-card
+        v-card-title
+          v-icon(left) share
+          span.title Share URL
+        v-card-text
+          v-text-field(v-model="shareURL" type="url" prepend-icon="link" readonly autofocus)
     v-container
       v-card
         v-form(ref="form" v-model="valid" @submit.prevent)
           v-card-text
-            v-date-field(v-model="shareFrom" label="from" required :disabled="formLoading")
-            v-date-field(v-model="shareTo" label="to" required :disabled="formLoading")
+            v-date-field(v-model="shareFrom" label="from" required)
+            v-date-field(v-model="shareTo" label="to" required)
           v-card-actions
-            v-btn(type="submit" large color="primary" @click="submit" :disabled="!valid || formLoading" :loading="formLoading") Create link
-            v-btn(type="button" large color="accent" @click="clear" :disabled="formLoading" :loading="formLoading") Clear
+            v-btn(type="submit" large color="primary" @click="share" :disabled="!valid") Create link
+            v-btn(type="button" large color="accent" @click="clear") Clear
     v-container
       share-table(:contributes="contributes" :loading="contributeLoading")
 </template>
@@ -26,7 +33,8 @@ export default {
       shareFrom: '',
       shareTo: '',
       valid: false,
-      formLoading: false
+      formLoading: false,
+      sheet: false
     }
   },
   computed: {
@@ -45,6 +53,16 @@ export default {
         const at = new Date(contribute.at)
         return shareFrom <= at && at <= shareTo
       })
+    },
+    shareURL: context => {
+      if (!context.valid) return null
+      const query = {
+        uid: context.currentUser.uid,
+        from: context.shareFrom,
+        to: context.shareTo
+      }
+      const { href } = context.$router.resolve({ name: 'share', query: query })
+      return location.origin + href
     }
   },
   created() {
@@ -52,14 +70,16 @@ export default {
   },
   methods: {
     ...mapActions('contributes', ['initialize']),
-    submit() {
+    share() {
       if (!this.valid) return false
-
-      // TODO: share something
+      this.sheet = true
     },
     clear() {
       this.$refs.form.reset()
       this.$nextTick(() => this.initializeParams())
+    },
+    close() {
+      this.sheet = false
     }
   }
 }
