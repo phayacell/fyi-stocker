@@ -4,9 +4,9 @@
       v-toolbar-title Change password
     v-form(v-model="valid" ref="form" @submit.prevent)
       v-card-text
-        v-text-field(v-model="currentPassword" prepend-icon="lock" label="current password" type="password" :rules="$rules.required")
-        v-password-field(v-model="newPassword" label="new passowrd")
-        v-password-field(v-model="confirmPassword" label="confirm new password" :confirm="newPassword")
+        v-password-field(v-model="currentPassword" label="current password" required :disabled="loading")
+        v-password-field(v-model="newPassword" label="new passowrd" required :disabled="loading")
+        v-password-field(v-model="confirmPassword" label="confirm new password" :confirm="newPassword" required :disabled="loading")
       v-card-actions
         v-btn(type="submit" large color="primary" @click="changePassword" :disabled="!valid || loading" :loading="loading") Submit
 </template>

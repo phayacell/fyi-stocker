@@ -2,9 +2,9 @@
   v-card
     v-form(v-if="contribute" ref="form" v-model="valid" @submit.prevent)
       v-card-text
-        v-text-field(v-model="contribute.at" prepend-icon="calendar_today" label="AT" :rules="$rules.required" required :disabled="loading")
-        v-text-field(v-model="contribute.url" prepend-icon="link" label="URL" :rules="$rules.required" required :disabled="loading" @paste="loadTitle" autofocus)
-        v-text-field(v-model="contribute.title" prepend-icon="text_format" label="TITLE" :rules="$rules.required" required :disabled="loading")
+        v-date-field(v-model="contribute.at" label="AT" required :disabled="loading")
+        v-text-field(v-model="contribute.url" type="url" prepend-icon="link" label="URL" :rules="[$rules.required, rules.urlFormat]" :disabled="loading" @paste="loadTitle" autofocus)
+        v-text-field(v-model="contribute.title" prepend-icon="text_format" label="TITLE" :rules="[$rules.required]" :disabled="loading")
       v-card-actions
         template(v-if="mode === 'create'")
           v-btn(type="submit" large color="primary" @click="add" :disabled="!valid || loading" :loading="loading") Stock
@@ -17,7 +17,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import format from 'date-fns/format'
 
 export default {
   props: {
@@ -43,7 +42,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('auth', ['currentUser'])
+    ...mapGetters('auth', ['currentUser']),
+    rules() {
+      return {
+        urlFormat: v => RegExp(/^http(s)?:\/\/.*/).test(v) || 'Should be URL.'
+      }
+    }
   },
   created() {
     if (this.mode === 'create') {
@@ -117,8 +121,7 @@ export default {
       }
     },
     formatDate(text) {
-      if (text) return format(new Date(text), 'yyyy-MM-dd')
-      return format(new Date(), 'yyyy-MM-dd')
+      return this.$utils.formatDate(text || new Date())
     },
     isURL(str) {
       const matcher = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/

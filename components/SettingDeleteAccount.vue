@@ -5,7 +5,7 @@
     v-form(v-model="valid" ref="form" @submit.prevent)
       v-card-text
         p.mb-4 Once you delete your account, there is no going back. Please be certain.
-        v-text-field(v-model="currentPassword" prepend-icon="lock" label="current password" type="password" :rules="$rules.required")
+        v-password-field(v-model="currentPassword" label="current password" required :disabled="loading")
       v-card-actions
         v-btn(type="submit" large flat color="error" @click="deleteAccount" :disabled="!valid || loading" :loading="loading")
           | Delete your account

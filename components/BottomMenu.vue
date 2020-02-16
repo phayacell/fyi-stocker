@@ -8,6 +8,10 @@
         v-list-tile-action
           v-icon home
         v-list-tile-content Home
+      v-list-tile(v-if="isAuthenticated" @click="isShow = false" to="/share/edit")
+        v-list-tile-action
+          v-icon share
+        v-list-tile-content Share
       v-list-tile(v-if="isAuthenticated" @click="isShow = false" to="/settings")
         v-list-tile-action
           v-icon settings

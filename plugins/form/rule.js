@@ -1,5 +1,5 @@
 import Vue from 'vue'
 
-const required = [v => !!v || 'Required field.']
+const required = v => !!v || 'Required field.'
 
 Vue.prototype.$rules = { required }
