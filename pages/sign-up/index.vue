@@ -8,9 +8,9 @@
               v-toolbar-title Sign up form
             v-form(v-model="valid" ref="form" @submit.prevent)
               v-card-text
-                v-text-field(v-model="email" prepend-icon="email" label="email" type="email" :rules="$rules.required" autofocus)
-                v-password-field(v-model="password" label="password")
-                v-password-field(v-model="passwordConfirm" label="confirm password" :confirm="password")
+                v-text-field(v-model="email" prepend-icon="email" label="email" type="email" :rules="[$rules.required]" :disabled="loading" autofocus)
+                v-password-field(v-model="password" label="password" required :disabled="loading")
+                v-password-field(v-model="confirmPassword" label="confirm password" :confirm="password" required :disabled="loading")
               v-card-actions
                 v-btn(type="submit" large color="primary" @click="signUp" :disabled="!valid || loading" :loading="loading") Sign Up
         v-flex(xs12)
@@ -31,7 +31,7 @@ export default {
     return {
       email: '',
       password: '',
-      passwordConfirm: '',
+      confirmPassword: '',
       valid: false,
       loading: false
     }

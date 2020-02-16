@@ -1,12 +1,10 @@
 <template lang="pug">
   v-text-field(
     v-model="internalValue"
-    prepend-icon="lock"
-    :type="show ? 'text' : 'password'"
-    :append-icon="show ? 'visibility_off' : 'visibility'"
-    @click:append="show = !show"
-    :hint="hint"
+    prepend-icon="calendar_today"
+    @blur="internalValue = $utils.formatDate(internalValue)"
     :label="label"
+    :hint="hint"
     :rules="rules"
     :disabled="disabled"
   )
@@ -16,11 +14,6 @@
 export default {
   props: {
     value: { required: true }, // eslint-disable-line vue/require-prop-types
-    confirm: {
-      type: String,
-      required: false,
-      default: undefined
-    },
     label: {
       type: String,
       required: false,
@@ -37,37 +30,23 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      show: false
-    }
-  },
   computed: {
     internalValue: {
       get() {
         return this.value
       },
       set(newValue) {
-        if (this.value !== newValue) {
-          this.$emit('input', newValue)
-        }
+        if (this.value !== newValue) this.$emit('input', newValue)
       }
     },
-    isConfirm: context => typeof context.confirm !== 'undefined',
     isRequired: context => typeof context.required !== 'undefined',
-    hint: context =>
-      context.isConfirm
-        ? 'At least 6 characters and match to password.'
-        : 'At least 6 characters.',
+    hint: context => 'Format to "yyyy-MM-dd".',
     rules: context => {
+      const dateRegex = RegExp(/^\d{4}-\d{2}-\d{2}/)
       const rules = [
-        v => !v || v.length >= 6 || 'Password should be at least 6 characters.'
+        v => !v || dateRegex.test(v) || 'Should be format to "yyyy-MM-dd".'
       ]
       if (context.isRequired) rules.unshift(context.$rules.required)
-      if (context.isConfirm)
-        rules.push(
-          v => (v && v === context.confirm) || 'Password do not match.'
-        )
       return rules
     }
   }

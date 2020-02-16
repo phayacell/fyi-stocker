@@ -4,8 +4,8 @@
       v-card
         v-form(ref="form" v-model="valid" @submit.prevent)
           v-card-text
-            v-text-field(v-model="shareFrom" @blur="shareFrom = formatDate(shareFrom)" prepend-icon="calendar_today" label="from" :rules="rules" required :disabled="formLoading")
-            v-text-field(v-model="shareTo" @blur="shareTo = formatDate(shareTo)" prepend-icon="calendar_today" label="to" :rules="rules" required :disabled="formLoading")
+            v-date-field(v-model="shareFrom" label="from" required :disabled="formLoading")
+            v-date-field(v-model="shareTo" label="to" required :disabled="formLoading")
           v-card-actions
             v-btn(type="submit" large color="primary" @click="submit" :disabled="!valid || formLoading" :loading="formLoading") Create link
             v-btn(type="button" large color="accent" @click="clear" :disabled="formLoading" :loading="formLoading") Clear
@@ -15,7 +15,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import format from 'date-fns/format'
 import ShareTable from '~/components/ShareTable'
 
 export default {
@@ -36,7 +35,6 @@ export default {
       originContributes: 'contributes',
       contributeLoading: 'loading'
     }),
-    rules: context => context.$rules.required.concat(context.$rules.dateFormat),
     contributes: context => {
       if (!context.valid) return []
 
@@ -57,21 +55,11 @@ export default {
     submit() {
       if (!this.valid) return false
 
-      this.shareFrom = this.formatDate(this.shareFrom)
-      this.shareTo = this.formatDate(this.shareTo)
-
       // TODO: share something
     },
     clear() {
       this.$refs.form.reset()
       this.$nextTick(() => this.initializeParams())
-    },
-    formatDate(text) {
-      try {
-        return format(new Date(text), 'yyyy-MM-dd')
-      } catch {
-        return text
-      }
     }
   }
 }
