@@ -4,8 +4,8 @@
       v-toolbar-title Change email
     v-form(v-model="valid" ref="form" @submit.prevent)
       v-card-text
-        v-text-field(:value="currentEmail" prepend-icon="email" label="current email" type="email" readonly)
-        v-text-field(v-model="newEmail" prepend-icon="email" label="new email" type="email" :rules="[$rules.required]" :disabled="loading")
+        v-email-field(:value="currentEmail" label="current email" readonly)
+        v-email-field(v-model="newEmail" label="new email" required :disabled="loading")
         v-password-field(v-model="currentPassword" label="current password" required :disabled="loading")
       v-card-actions
         v-btn(type="submit" large color="primary" @click="changeEmail" :disabled="!valid || loading" :loading="loading") Submit

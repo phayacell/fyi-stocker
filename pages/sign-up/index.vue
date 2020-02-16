@@ -8,7 +8,7 @@
               v-toolbar-title Sign up form
             v-form(v-model="valid" ref="form" @submit.prevent)
               v-card-text
-                v-text-field(v-model="email" prepend-icon="email" label="email" type="email" :rules="[$rules.required]" :disabled="loading" autofocus)
+                v-email-field(v-model="email" label="email" required :disabled="loading" autofocus)
                 v-password-field(v-model="password" label="password" required :disabled="loading")
                 v-password-field(v-model="confirmPassword" label="confirm password" :confirm="password" required :disabled="loading")
               v-card-actions

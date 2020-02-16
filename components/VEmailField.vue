@@ -1,10 +1,9 @@
 <template lang="pug">
   v-text-field(
     v-model="internalValue"
-    prepend-icon="calendar_today"
-    @blur="internalValue = $utils.formatDate(internalValue)"
+    type="email"
+    prepend-icon="email"
     :label="label"
-    :hint="hint"
     :rules="rules"
     :readonly="readonly"
     :disabled="disabled"
@@ -35,12 +34,8 @@ export default {
         if (this.value !== newValue) this.$emit('input', newValue)
       }
     },
-    hint: context => 'Format to "yyyy-MM-dd".',
     rules: context => {
-      const dateRegex = RegExp(/^\d{4}-\d{2}-\d{2}/)
-      const rules = [
-        v => !v || dateRegex.test(v) || 'Should be format to "yyyy-MM-dd".'
-      ]
+      const rules = []
       if (context.required) rules.unshift(context.$rules.required)
       return rules
     }

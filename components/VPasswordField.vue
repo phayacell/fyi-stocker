@@ -8,7 +8,9 @@
     :hint="hint"
     :label="label"
     :rules="rules"
+    :readonly="readonly"
     :disabled="disabled"
+    :autofocus="autofocus"
   )
 </template>
 
@@ -26,16 +28,10 @@ export default {
       required: false,
       default: undefined
     },
-    required: {
-      type: String,
-      required: false,
-      default: undefined
-    },
-    disabled: {
-      type: Boolean,
-      required: false,
-      default: false
-    }
+    required: { type: Boolean, required: false, default: false },
+    readonly: { type: Boolean, required: false, default: false },
+    disabled: { type: Boolean, required: false, default: false },
+    autofocus: { type: Boolean, required: false, default: false }
   },
   data() {
     return {
@@ -54,7 +50,6 @@ export default {
       }
     },
     isConfirm: context => typeof context.confirm !== 'undefined',
-    isRequired: context => typeof context.required !== 'undefined',
     hint: context =>
       context.isConfirm
         ? 'At least 6 characters and match to password.'
@@ -63,7 +58,7 @@ export default {
       const rules = [
         v => !v || v.length >= 6 || 'Password should be at least 6 characters.'
       ]
-      if (context.isRequired) rules.unshift(context.$rules.required)
+      if (context.required) rules.unshift(context.$rules.required)
       if (context.isConfirm)
         rules.push(
           v => (v && v === context.confirm) || 'Password do not match.'
