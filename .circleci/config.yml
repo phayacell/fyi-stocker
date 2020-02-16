@@ -55,7 +55,7 @@ jobs:
             echo "FB_DATABASE_URL=${FB_DATABASE_URL}" >> .env
             echo "FB_PROJECT_ID=${FB_PROJECT_ID}" >> .env
             echo "GAS_WEB_URL=${GAS_WEB_URL}" >> .env
-      - run: yarn run generate
+      - run: yarn generate
       - run:
           name: Deploy Master to Firebase
           command: ./node_modules/.bin/firebase deploy --token="$FB_LOGIN_TOKEN"
