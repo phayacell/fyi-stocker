@@ -31,5 +31,5 @@ $ yarn install
 $ yarn dev
 
 # generate static project
-$ yarn run generate
+$ yarn generate
 ```
